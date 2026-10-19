@@ -48,6 +48,7 @@
     .badge-green { background-color: rgba(34, 197, 94, 0.2); color: var(--accent-green); }
     .badge-amber { background-color: rgba(245, 158, 11, 0.2); color: var(--accent-amber); }
     .badge-purple { background-color: rgba(168, 85, 247, 0.2); color: var(--accent-purple); }
+    .badge-red { background-color: rgba(239, 68, 68, 0.2); color: var(--accent-red); }
 
     .btn { background-color: var(--accent-blue); color: #000; border: none; padding: 0.6rem 1rem; border-radius: 6px; font-weight: 600; cursor: pointer; transition: opacity 0.2s; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; font-size: 0.875rem; width: 100%; margin-top: 0.5rem; }
     .btn:hover { opacity: 0.9; }
@@ -64,10 +65,44 @@
     .client-list { max-height: 180px; overflow-y: auto; display: flex; flex-direction: column; gap: 0.5rem; }
     .client-item { background-color: #0f172a; border: 1px solid var(--border-color); border-radius: 6px; padding: 0.5rem 0.75rem; font-size: 0.8rem; display: flex; align-items: center; justify-content: space-between; }
     
-    .color-picker { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
-    .color-btn { width: 32px; height: 32px; border-radius: 50%; border: 2px solid transparent; cursor: pointer; }
-    .color-btn.active { border-color: #fff; transform: scale(1.1); }
+    .color-picker { display: flex; gap: 0.5rem; margin-top: 0.5rem; align-items: center; flex-wrap: wrap; }
+    .color-btn { width: 28px; height: 28px; border-radius: 50%; border: 2px solid transparent; cursor: pointer; transition: transform 0.15s; }
+    .color-btn.active { border-color: #fff; transform: scale(1.15); box-shadow: 0 0 8px rgba(255,255,255,0.4); }
     
+    .tool-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.4rem; margin-bottom: 0.75rem; }
+    .tool-btn { background-color: #0f172a; border: 1px solid var(--border-color); color: var(--text-muted); padding: 0.45rem 0.3rem; border-radius: 6px; font-size: 0.78rem; font-weight: 600; cursor: pointer; transition: all 0.15s; display: flex; align-items: center; justify-content: center; gap: 0.3rem; }
+    .tool-btn:hover { color: var(--text-main); border-color: var(--accent-blue); }
+    .tool-btn.active { background-color: rgba(56, 189, 248, 0.18); color: var(--accent-blue); border-color: var(--accent-blue); }
+
+    .canvas-wrapper { position: relative; background-color: #090d16; border: 1px solid var(--border-color); border-radius: 8px; padding: 0.5rem; overflow: hidden; }
+    .cursor-layer { position: absolute; inset: 0.5rem; pointer-events: none; overflow: hidden; z-index: 20; }
+    .remote-cursor { position: absolute; top: 0; left: 0; pointer-events: none; transition: transform 0.07s linear; z-index: 25; display: flex; align-items: flex-start; gap: 2px; }
+    .remote-cursor-label { font-size: 0.7rem; font-weight: 700; padding: 2px 6px; border-radius: 4px; color: #fff; white-space: nowrap; box-shadow: 0 2px 6px rgba(0,0,0,0.4); margin-top: 12px; }
+
+    .floating-emoji { position: absolute; bottom: 20px; font-size: 2rem; pointer-events: none; z-index: 30; animation: floatUp 2.6s ease-out forwards; display: flex; flex-direction: column; align-items: center; }
+    .floating-emoji span { font-size: 0.68rem; background: rgba(15, 23, 42, 0.85); color: #f8fafc; padding: 1px 6px; border-radius: 10px; margin-top: -4px; white-space: nowrap; border: 1px solid var(--border-color); }
+    @keyframes floatUp {
+      0% { transform: translateY(0) scale(0.7); opacity: 1; }
+      20% { transform: translateY(-40px) scale(1.15); opacity: 1; }
+      100% { transform: translateY(-340px) scale(0.95); opacity: 0; }
+    }
+
+    .emoji-bar { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; background-color: #0f172a; border: 1px solid var(--border-color); border-radius: 8px; padding: 0.45rem 0.75rem; margin-top: 0.75rem; flex-wrap: wrap; }
+    .emoji-btn { background: rgba(255,255,255,0.05); border: 1px solid transparent; border-radius: 6px; font-size: 1.15rem; padding: 0.2rem 0.5rem; cursor: pointer; transition: transform 0.15s, background 0.15s; }
+    .emoji-btn:hover { transform: scale(1.2); background: rgba(56, 189, 248, 0.15); border-color: var(--accent-blue); }
+
+    .game-banner { background: linear-gradient(90deg, rgba(56, 189, 248, 0.12), rgba(168, 85, 247, 0.12)); border: 1px solid var(--border-color); border-radius: 8px; padding: 0.65rem 1rem; margin-bottom: 0.75rem; display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap; }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; margin-bottom: 0.75rem; }
+    @media (max-width: 700px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+    .stat-box { background-color: #0f172a; border: 1px solid var(--border-color); border-radius: 6px; padding: 0.5rem 0.6rem; text-align: center; }
+    .stat-val { font-size: 1rem; font-weight: 700; color: var(--accent-blue); font-family: monospace; }
+    .stat-lbl { font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase; margin-top: 0.15rem; }
+
+    .chat-box { height: 170px; overflow-y: auto; background-color: #090d16; border: 1px solid var(--border-color); border-radius: 6px; padding: 0.5rem 0.75rem; font-size: 0.8rem; margin-bottom: 0.5rem; display: flex; flex-direction: column; gap: 0.35rem; }
+    .chat-msg { line-height: 1.4; word-break: break-word; }
+    .chat-msg.system { color: var(--accent-amber); font-weight: 600; }
+    .chat-msg.correct { color: var(--accent-green); font-weight: 700; background: rgba(34, 197, 94, 0.12); padding: 0.25rem 0.5rem; border-radius: 4px; }
+
     code.inline-code { background-color: #334155; color: var(--accent-blue); padding: 0.1rem 0.3rem; border-radius: 4px; font-size: 0.8rem; }
     .theory-text { font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 0.75rem; }
     .theory-list { margin-left: 1.25rem; font-size: 0.875rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 1rem; }
@@ -84,10 +119,10 @@
   </header>
 
   <nav class="nav-tabs">
-    <button class="tab-btn active" onclick="switchTab('tab1')">1. Mô Hình Unicast, Broadcast & Multicast</button>
-    <button class="tab-btn" onclick="switchTab('tab2')">2. Cơ chế Public MQTT Broker</button>
-    <button class="tab-btn" onclick="switchTab('tab3')">3. Phòng Lab: Whiteboard Phân Tán</button>
-    <button class="tab-btn" onclick="switchTab('tab4')">4. Phân Tích Gói Tin Bằng Wireshark</button>
+    <button class="tab-btn active" onclick="switchTab('tab1', this)">1. Mô Hình Unicast, Broadcast & Multicast</button>
+    <button class="tab-btn" onclick="switchTab('tab2', this)">2. Cơ chế Public MQTT Broker</button>
+    <button class="tab-btn" onclick="switchTab('tab3', this)">3. Phòng Lab: Whiteboard Phân Tán</button>
+    <button class="tab-btn" onclick="switchTab('tab4', this)">4. Phân Tích Gói Tin Bằng Wireshark</button>
   </nav>
 
   <main>
@@ -191,24 +226,40 @@
     <!-- TAB 3: PHÒNG LAB WHITEBOARD PHÂN TÁN -->
     <div id="tab3" class="tab-content">
       <div class="grid-sidebar">
+        <!-- CỘT TRÁI: ĐIỀU KHIỂN, DANH SÁCH CLIENT & CÔNG CỤ VẼ -->
         <div>
           <div class="card">
             <div class="card-title">
               <span>Trạng Thái Kết Nối MQTT</span>
               <span id="connStatus" class="badge badge-amber">Đang kết nối...</span>
             </div>
-            <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.5rem;">
+            <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.4rem;">
               Broker: <code class="inline-code">broker.hivemq.com:8884</code>
             </p>
-            <p style="font-size: 0.75rem; color: var(--text-muted);">
-              Mã nhận diện Client: <strong id="myClientId" style="color: var(--accent-blue);">--</strong>
+            <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.4rem;">
+              Mã Client: <strong id="myClientId" style="color: var(--accent-blue);">--</strong>
             </p>
+            <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.6rem;">
+              Topic: <code class="inline-code" id="currentTopicDisplay">btltm/whiteboard/phong_rieng_01</code>
+            </p>
+            <div style="border-top: 1px solid var(--border-color); padding-top: 0.65rem; margin-top: 0.4rem;">
+              <label style="font-size: 0.75rem; color: var(--text-muted); display: block; margin-bottom: 0.25rem;">Tên hiển thị của bạn:</label>
+              <div style="display: flex; gap: 0.4rem; margin-bottom: 0.6rem;">
+                <input type="text" id="nameInput" placeholder="Nhập tên của bạn..." style="flex: 1; background-color: #0f172a; border: 1px solid var(--border-color); color: var(--text-main); padding: 0.38rem 0.6rem; border-radius: 6px; font-size: 0.8rem; outline: none;">
+                <button class="btn" style="width: auto; margin-top: 0; padding: 0.38rem 0.65rem; font-size: 0.78rem;" onclick="updateMyName()">Lưu Tên</button>
+              </div>
+              <label style="font-size: 0.75rem; color: var(--text-muted); display: block; margin-bottom: 0.25rem;">Mã Phòng (Room ID):</label>
+              <div style="display: flex; gap: 0.4rem;">
+                <input type="text" id="roomInput" value="phong_rieng_01" placeholder="Nhập mã phòng..." style="flex: 1; background-color: #0f172a; border: 1px solid var(--border-color); color: var(--text-main); padding: 0.38rem 0.6rem; border-radius: 6px; font-size: 0.8rem; outline: none;">
+                <button class="btn" style="width: auto; margin-top: 0; padding: 0.38rem 0.65rem; font-size: 0.78rem;" onclick="changeRoom()">Đổi Phòng</button>
+              </div>
+            </div>
           </div>
 
           <div class="card">
             <div class="card-title">
-              <span>Danh Sách Client Trực Tuyến</span>
-              <span id="clientCountBadge" class="badge badge-blue">0 Online</span>
+              <span>Thành Viên & Bảng Điểm</span>
+              <span id="clientCountBadge" class="badge badge-blue">1 Online</span>
             </div>
             <div class="client-list" id="clientListContainer">
               <div style="font-size: 0.8rem; color: var(--text-muted); text-align: center; padding: 1rem;">Đang đồng bộ danh sách...</div>
@@ -216,36 +267,132 @@
           </div>
 
           <div class="card">
-            <div class="card-title"><span>Công Cụ Vẽ</span></div>
+            <div class="card-title">
+              <span>Bộ Công Cụ Vẽ Nâng Cao</span>
+              <span id="activeToolBadge" class="badge badge-purple">Bút vẽ</span>
+            </div>
+
+            <label style="font-size: 0.78rem; color: var(--text-muted); display: block; margin-bottom: 0.35rem;">Chế độ công cụ:</label>
+            <div class="tool-grid">
+              <button class="tool-btn active" id="tool-pen" onclick="setTool('pen', 'Bút vẽ')">✏️ Bút</button>
+              <button class="tool-btn" id="tool-line" onclick="setTool('line', 'Đường thẳng')">📏 Đường</button>
+              <button class="tool-btn" id="tool-rect" onclick="setTool('rect', 'Hình chữ nhật')">▭ Khung</button>
+              <button class="tool-btn" id="tool-circle" onclick="setTool('circle', 'Hình tròn')">⭕ Tròn</button>
+              <button class="tool-btn" id="tool-text" onclick="setTool('text', 'Gõ chữ')">🔤 Chữ</button>
+              <button class="tool-btn" id="tool-eraser" onclick="setTool('eraser', 'Cục tẩy')">🧹 Tẩy</button>
+            </div>
+
             <div style="margin-bottom: 0.75rem;">
-              <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.25rem;">Màu sắc nét cọ:</label>
+              <label style="font-size: 0.78rem; color: var(--text-muted); display: block; margin-bottom: 0.25rem;">Màu sắc nét cọ:</label>
               <div class="color-picker">
                 <div class="color-btn active" style="background-color: #0f172a;" onclick="setColor('#0f172a', this)"></div>
                 <div class="color-btn" style="background-color: #ef4444;" onclick="setColor('#ef4444', this)"></div>
+                <div class="color-btn" style="background-color: #f59e0b;" onclick="setColor('#f59e0b', this)"></div>
                 <div class="color-btn" style="background-color: #22c55e;" onclick="setColor('#22c55e', this)"></div>
                 <div class="color-btn" style="background-color: #38bdf8;" onclick="setColor('#38bdf8', this)"></div>
+                <div class="color-btn" style="background-color: #a855f7;" onclick="setColor('#a855f7', this)"></div>
+                <input type="color" id="customColorPicker" value="#0f172a" title="Chọn màu bất kỳ" style="width: 30px; height: 30px; border: none; background: none; cursor: pointer;" onchange="setCustomColor(this.value)">
               </div>
             </div>
-            <div style="margin-bottom: 1rem;">
-              <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.25rem;">Độ dày: <span id="sizeVal">4</span>px</label>
-              <input type="range" id="brushSize" min="1" max="20" value="4" style="width: 100%; accent-color: var(--accent-blue);" oninput="document.getElementById('sizeVal').textContent=this.value">
-            </div>
-            <button class="btn btn-danger" onclick="clearBoard()">Xóa Sạch Bảng Chung</button>
-          </div>
 
-          <div class="card">
-            <div class="card-title"><span>Nhật Ký Thao Tác & Mạng</span></div>
-            <div class="log-box" id="netLogs"></div>
+            <div style="margin-bottom: 0.75rem;">
+              <label style="font-size: 0.78rem; color: var(--text-muted); display: block; margin-bottom: 0.25rem;">Độ dày nét / Cỡ chữ: <span id="sizeVal">4</span>px</label>
+              <input type="range" id="brushSize" min="1" max="28" value="4" style="width: 100%; accent-color: var(--accent-blue);" oninput="document.getElementById('sizeVal').textContent=this.value">
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+              <button class="btn" style="background-color: #334155; color: #f8fafc; margin-top: 0;" onclick="undoLastAction()">↩️ Hoàn Tác</button>
+              <button class="btn" style="background-color: var(--accent-green); color: #000; margin-top: 0;" onclick="downloadBoard()">💾 Tải PNG</button>
+            </div>
+            <button class="btn btn-danger" onclick="clearBoard()">🗑️ Xóa Sạch Bảng Chung</button>
           </div>
         </div>
 
-        <div class="card" style="display: flex; flex-direction: column;">
-          <div class="card-title">
-            <span>Bảng Vẽ Phân Tán (Hỗ trợ PC & Điện thoại cuộn trang)</span>
-            <span class="badge badge-green">Optimized Touch</span>
+        <!-- CỘT PHẢI: MINI-GAME, BẢNG VẼ, CHAT & GIÁM SÁT MẠNG -->
+        <div style="display: flex; flex-direction: column;">
+          <div class="card" style="display: flex; flex-direction: column;">
+            <div class="card-title" style="margin-bottom: 0.65rem;">
+              <span>Bảng Vẽ Phân Tán Realtime (Live Cursors & Multi-Tool)</span>
+              <span class="badge badge-green">1-to-Many Broadcast</span>
+            </div>
+
+            <!-- THANH MINI-GAME VẼ & ĐOÁN TỪ KHÓA -->
+            <div class="game-banner">
+              <div>
+                <div style="font-size: 0.85rem; font-weight: 700; color: var(--accent-amber);" id="gameStatusTitle">🎮 Mini-Game: Đuổi Hình Bắt Chữ (Draw & Guess)</div>
+                <div style="font-size: 0.78rem; color: var(--text-main); margin-top: 0.15rem;" id="gameStatusSub">Bấm "Bắt đầu vẽ" để nhận từ khóa bí mật, cả phòng sẽ nhìn nét vẽ và gõ đáp án vào ô Chat!</div>
+              </div>
+              <div style="display: flex; gap: 0.4rem;">
+                <button class="btn" style="width: auto; margin-top: 0; padding: 0.4rem 0.75rem; font-size: 0.78rem; background-color: var(--accent-amber); color: #000;" onclick="startMiniGameRandom()">🎲 Bắt Đầu Vẽ (Ngẫu nhiên)</button>
+                <button class="btn" style="width: auto; margin-top: 0; padding: 0.4rem 0.75rem; font-size: 0.78rem; background-color: var(--accent-purple); color: #fff;" onclick="startMiniGameCustom()">✍️ Tự Ra Đề</button>
+              </div>
+            </div>
+
+            <!-- KHUNG CANVAS + LỚP CON TRỎ CHUỘT & EMOJI BAY -->
+            <div class="canvas-wrapper" id="canvasWrapper">
+              <canvas id="whiteboard" class="drawing-canvas" width="1000" height="540" style="height: 500px;"></canvas>
+              <canvas id="previewCanvas" class="drawing-canvas" width="1000" height="540" style="height: 500px; position: absolute; top: 0.5rem; left: 0.5rem; width: calc(100% - 1rem); background: transparent; pointer-events: none; z-index: 10;"></canvas>
+              <div class="cursor-layer" id="cursorOverlay"></div>
+            </div>
+
+            <!-- THANH THẢ REACTION BAY TOÀN PHÒNG -->
+            <div class="emoji-bar">
+              <span style="font-size: 0.78rem; color: var(--text-muted); font-weight: 600;">⚡ Thả cảm xúc Broadcast toàn phòng:</span>
+              <div style="display: flex; gap: 0.35rem;">
+                <button class="emoji-btn" onclick="sendEmoji('🔥')">🔥</button>
+                <button class="emoji-btn" onclick="sendEmoji('❤️')">❤️</button>
+                <button class="emoji-btn" onclick="sendEmoji('👏')">👏</button>
+                <button class="emoji-btn" onclick="sendEmoji('😂')">😂</button>
+                <button class="emoji-btn" onclick="sendEmoji('🎉')">🎉</button>
+                <button class="emoji-btn" onclick="sendEmoji('🤩')">🤩</button>
+                <button class="emoji-btn" onclick="sendEmoji('👍')">👍</button>
+              </div>
+            </div>
           </div>
-          <div class="canvas-container" style="flex: 1; margin-bottom: 0;">
-            <canvas id="whiteboard" class="drawing-canvas" width="1000" height="600" style="height: 560px;"></canvas>
+
+          <!-- HÀNG DƯỚI: KHUNG CHAT ĐOÁN TỪ & THỐNG KÊ MẠNG REALTIME -->
+          <div class="grid-2">
+            <div class="card" style="margin-bottom: 0;">
+              <div class="card-title">
+                <span>💬 Phòng Chat & Đoán Từ Khóa</span>
+                <span class="badge badge-blue">Broadcast Chat</span>
+              </div>
+              <div class="chat-box" id="chatBox">
+                <div class="chat-msg system">💡 Chào mừng! Bạn có thể trò chuyện hoặc gõ đáp án đoán từ khóa tại đây.</div>
+              </div>
+              <div style="display: flex; gap: 0.5rem;">
+                <input type="text" id="chatInput" placeholder="Nhập tin nhắn hoặc đáp án đoán từ..." style="flex: 1; background-color: #0f172a; border: 1px solid var(--border-color); color: var(--text-main); padding: 0.5rem 0.75rem; border-radius: 6px; font-size: 0.82rem; outline: none;" onkeydown="if(event.key==='Enter') sendChatMessage()">
+                <button class="btn" style="width: auto; margin-top: 0; padding: 0.5rem 1rem;" onclick="sendChatMessage()">Gửi</button>
+              </div>
+            </div>
+
+            <div class="card" style="margin-bottom: 0;">
+              <div class="card-title">
+                <span>📊 Giám Sát Lưu Lượng Mạng (Network Telemetry)</span>
+                <button class="btn" style="width: auto; margin-top: 0; padding: 0.2rem 0.6rem; font-size: 0.72rem;" onclick="measurePing()">⚡ Đo Ping</button>
+              </div>
+              <div class="stats-grid">
+                <div class="stat-box">
+                  <div class="stat-val" id="statPing">-- ms</div>
+                  <div class="stat-lbl">Độ trễ (RTT)</div>
+                </div>
+                <div class="stat-box">
+                  <div class="stat-val" id="statPktRate">0 pkt/s</div>
+                  <div class="stat-lbl">Tốc độ gói</div>
+                </div>
+                <div class="stat-box">
+                  <div class="stat-val" id="statByteRate">0 B/s</div>
+                  <div class="stat-lbl">Băng thông</div>
+                </div>
+                <div class="stat-box">
+                  <div class="stat-val" id="statTotalPkt">0 / 0</div>
+                  <div class="stat-lbl">Tổng TX / RX</div>
+                </div>
+              </div>
+              <div style="font-size: 0.72rem; color: var(--text-muted); margin-bottom: 0.25rem;">Gói tin JSON gần nhất (Live Payload Inspector):</div>
+              <div id="jsonInspector" style="background: #090d16; border: 1px solid var(--border-color); border-radius: 6px; padding: 0.4rem 0.6rem; font-family: monospace; font-size: 0.72rem; color: var(--accent-green); white-space: nowrap; overflow-x: auto; margin-bottom: 0.5rem;">{"status": "Waiting for packets..."}</div>
+              <div class="log-box" id="netLogs" style="height: 85px;"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -300,11 +447,11 @@
 
   <script>
     // --- TAB SWITCHING ---
-    function switchTab(tabId) {
+    function switchTab(tabId, selectedButton) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
       document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
       document.getElementById(tabId).classList.add('active');
-      event.currentTarget.classList.add('active');
+      selectedButton.classList.add('active');
 
       if (tabId === 'tab1') {
         startUnicastAnim();
@@ -473,30 +620,114 @@
       draw();
     }
 
-    // --- TAB 3: WHITEBOARD & TOUCH FIX ---
+    // --- TAB 3: WHITEBOARD, LIVE CURSORS, MINI-GAME & TELEMETRY ---
     const canvas = document.getElementById('whiteboard');
     const ctx = canvas.getContext('2d');
+    const previewCanvas = document.getElementById('previewCanvas');
+    const pCtx = previewCanvas.getContext('2d');
+    const cursorOverlay = document.getElementById('cursorOverlay');
+
     let painting = false;
+    let currentTool = 'pen'; // pen, line, rect, circle, text, eraser
     let currentColor = '#0f172a';
+    let startX = 0, startY = 0;
     let lastX = 0, lastY = 0;
+    let currentStrokeId = null;
 
-    const myId = 'Client_' + Math.floor(Math.random() * 9000 + 1000);
+    // Lịch sử thao tác vẽ để hỗ trợ Hoàn Tác (Undo) & Đồng bộ cho người vào sau (Late-Joiner Sync)
+    let drawHistory = [];
+
+    // Định danh & Tên hiển thị
+    const randomNum = Math.floor(Math.random() * 9000 + 1000);
+    const myId = 'Client_' + randomNum;
+    let myName = 'SV_' + randomNum;
+    let myScore = 0;
+    const cursorColors = ['#38bdf8', '#22c55e', '#f59e0b', '#ec4899', '#a855f7', '#14b8a6'];
+    const myCursorColor = cursorColors[randomNum % cursorColors.length];
+
     document.getElementById('myClientId').textContent = myId;
+    document.getElementById('nameInput').value = myName;
 
-    const topicName = "netprog/class/whiteboard/room_master";
-    const presenceTopic = "netprog/class/whiteboard/presence";
+    let currentRoom = "phong_rieng_01";
+    let topicName = `btltm/whiteboard/${currentRoom}/draw`;
+    let presenceTopic = `btltm/whiteboard/${currentRoom}/presence`;
 
     const activeClients = new Map();
-    activeClients.set(myId, { id: myId, status: 'Đang hoạt động', lastSeen: Date.now() });
+    activeClients.set(myId, { id: myId, name: myName, score: 0, status: 'Đang hoạt động', lastSeen: Date.now() });
+
+    const remoteCursors = new Map();
+
+    // Thống kê mạng (Network Telemetry)
+    let txPackets = 0, rxPackets = 0;
+    let txBytesSec = 0, rxBytesSec = 0;
+    let pktSecCount = 0;
+
+    // Trạng thái Mini-Game "Đuổi Hình Bắt Chữ"
+    const WORD_BANK = [
+      'MẠNG MÁY TÍNH', 'CON MÈO', 'MÁY BAY', 'MẶT TRỜI', 'NGÔI NHÀ',
+      'CÁ MẬP', 'ĐIỆN THOẠI', 'BÔNG HOA', 'XE ĐẠP', 'ĐÀN GUITAR',
+      'QUẢ TÁO', 'CẦU VỒNG', 'CỐC TRÀ SỮA', 'KÍNH CẬN', 'CON RỒNG',
+      'TÀU HỎA', 'ĐỒNG HỒ', 'BÁNH SINH NHẬT', 'CÂY THÔNG', 'QUẢ BÓNG ĐÁ'
+    ];
+    let gameState = {
+      active: false,
+      drawerId: null,
+      drawerName: '',
+      word: '', // Lưu dạng chuẩn hóa IN HOA
+      hint: ''
+    };
 
     function logNet(msg) {
       const logs = document.getElementById('netLogs');
       const time = new Date().toLocaleTimeString();
       const line = document.createElement('div');
       line.className = 'log-line';
-      line.innerHTML = `[${time}] ${msg}`;
+      line.textContent = `[${time}] ${msg}`;
       logs.appendChild(line);
       logs.scrollTop = logs.scrollHeight;
+    }
+
+    function inspectJson(direction, obj) {
+      const el = document.getElementById('jsonInspector');
+      if (!el) return;
+      el.style.color = direction === 'TX' ? '#38bdf8' : '#22c55e';
+      el.textContent = `[${direction}] ` + JSON.stringify(obj);
+    }
+
+    function publishPacket(topic, obj) {
+      if (!client || !client.connected) return;
+      const str = JSON.stringify(obj);
+      client.publish(topic, str);
+      txPackets++;
+      pktSecCount++;
+      txBytesSec += str.length;
+      if (obj.type !== 'cursor' && topic !== presenceTopic) {
+        inspectJson('TX', obj);
+      }
+    }
+
+    // Cập nhật đồng hồ đo tốc độ gói tin & băng thông mỗi giây
+    setInterval(() => {
+      document.getElementById('statPktRate').textContent = `${pktSecCount} pkt/s`;
+      const totalBytes = txBytesSec + rxBytesSec;
+      document.getElementById('statByteRate').textContent = totalBytes > 1024
+        ? `${(totalBytes / 1024).toFixed(1)} KB/s`
+        : `${totalBytes} B/s`;
+      document.getElementById('statTotalPkt').textContent = `${txPackets} / ${rxPackets}`;
+      pktSecCount = 0;
+      txBytesSec = 0;
+      rxBytesSec = 0;
+    }, 1000);
+
+    function updateMyName() {
+      const val = document.getElementById('nameInput').value.trim();
+      if (!val) return;
+      myName = val.substring(0, 20);
+      const me = activeClients.get(myId);
+      if (me) me.name = myName;
+      updateClientListUI();
+      publishPacket(presenceTopic, { id: myId, name: myName, score: myScore, status: 'Active' });
+      appendChat('Hệ thống', `Bạn đã đổi tên hiển thị thành "${myName}"`, 'system');
     }
 
     function updateClientListUI() {
@@ -504,51 +735,247 @@
       container.innerHTML = '';
       document.getElementById('clientCountBadge').textContent = `${activeClients.size} Online`;
 
-      activeClients.forEach((client, id) => {
+      const sorted = Array.from(activeClients.values()).sort((a, b) => (b.score || 0) - (a.score || 0));
+      sorted.forEach((c) => {
         const item = document.createElement('div');
         item.className = 'client-item';
-        item.innerHTML = `
-          <span><b>${id}</b> ${id === myId ? '(Bạn)' : ''}</span>
-          <span class="badge badge-green">${client.status}</span>
-        `;
+        const displayName = c.name || c.id;
+        const name = document.createElement('b');
+        name.textContent = displayName;
+        const identity = document.createElement('span');
+        identity.appendChild(name);
+        if (c.id === myId) {
+          const you = document.createElement('span');
+          you.textContent = ' (Bạn)';
+          you.style.color = 'var(--accent-blue)';
+          identity.appendChild(you);
+        }
+        const badges = document.createElement('div');
+        const scoreBadge = document.createElement('span');
+        scoreBadge.className = 'badge badge-amber';
+        scoreBadge.style.marginRight = '4px';
+        scoreBadge.textContent = `🏆 ${c.score || 0}đ`;
+        const onlineBadge = document.createElement('span');
+        onlineBadge.className = 'badge badge-green';
+        onlineBadge.textContent = 'Online';
+        badges.append(scoreBadge, onlineBadge);
+        item.append(identity, badges);
         container.appendChild(item);
       });
     }
 
     const client = mqtt.connect('wss://broker.hivemq.com:8884/mqtt', { clientId: myId });
 
+    function subscribeCurrentRoom() {
+      document.getElementById('currentTopicDisplay').textContent = `btltm/whiteboard/${currentRoom}`;
+      client.subscribe([topicName, presenceTopic], (err) => {
+        if (!err) {
+          logNet(`Đã vào phòng [${currentRoom}]`);
+          publishPacket(presenceTopic, { id: myId, name: myName, score: myScore, status: 'Active' });
+          // Yêu cầu đồng bộ bảng vẽ từ các máy đang ở trong phòng
+          publishPacket(topicName, { sender: myId, name: myName, type: 'request_sync' });
+          measurePing();
+        }
+      });
+    }
+
+    function changeRoom() {
+      const inputEl = document.getElementById('roomInput');
+      const newRoom = inputEl.value.trim().replace(/[^a-zA-Z0-9_-]/g, '_');
+      if (!newRoom) {
+        alert('Vui lòng nhập Mã Phòng hợp lệ!');
+        return;
+      }
+      if (newRoom === currentRoom) {
+        logNet(`Bạn đang ở trong phòng [${currentRoom}] rồi.`);
+        return;
+      }
+
+      if (client.connected) {
+        client.unsubscribe([topicName, presenceTopic]);
+      }
+
+      currentRoom = newRoom;
+      inputEl.value = currentRoom;
+      topicName = `btltm/whiteboard/${currentRoom}/draw`;
+      presenceTopic = `btltm/whiteboard/${currentRoom}/presence`;
+
+      activeClients.clear();
+      activeClients.set(myId, { id: myId, name: myName, score: myScore, status: 'Đang hoạt động', lastSeen: Date.now() });
+      updateClientListUI();
+      remoteCursors.forEach(el => el.el.remove());
+      remoteCursors.clear();
+      drawHistory = [];
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      appendChat('Hệ thống', `Đã chuyển sang phòng [${currentRoom}]`, 'system');
+
+      if (client.connected) {
+        subscribeCurrentRoom();
+      }
+    }
+
+    function measurePing() {
+      if (!client.connected) return;
+      publishPacket(topicName, { sender: myId, type: 'ping', ts: Date.now() });
+    }
+
     client.on('connect', () => {
       logNet('Đã kết nối thành công tới Public MQTT Broker!');
       document.getElementById('connStatus').textContent = 'Đã kết nối';
       document.getElementById('connStatus').className = 'badge badge-green';
 
-      client.subscribe([topicName, presenceTopic], (err) => {
-        if (!err) logNet(`Đã Subscribe vào các Topic chính.`);
-      });
+      subscribeCurrentRoom();
 
       setInterval(() => {
-        client.publish(presenceTopic, JSON.stringify({ id: myId, status: 'Active' }));
+        if (client.connected) {
+          publishPacket(presenceTopic, { id: myId, name: myName, score: myScore, status: 'Active' });
+        }
       }, 3000);
+
+      setInterval(() => {
+        if (client.connected) measurePing();
+      }, 6000);
+    });
+
+    client.on('reconnect', () => {
+      document.getElementById('connStatus').textContent = 'Đang kết nối lại...';
+      document.getElementById('connStatus').className = 'badge badge-amber';
+    });
+
+    client.on('offline', () => {
+      document.getElementById('connStatus').textContent = 'Mất kết nối';
+      document.getElementById('connStatus').className = 'badge badge-red';
+      logNet('Mất kết nối tới MQTT Broker; đang chờ kết nối lại.');
+    });
+
+    client.on('error', (err) => {
+      document.getElementById('connStatus').textContent = 'Lỗi kết nối';
+      document.getElementById('connStatus').className = 'badge badge-red';
+      logNet(`Lỗi MQTT: ${err.message}`);
     });
 
     client.on('message', (topic, payload) => {
       try {
-        const data = JSON.parse(payload.toString());
+        const rawStr = payload.toString();
+        rxPackets++;
+        pktSecCount++;
+        rxBytesSec += rawStr.length;
+
+        const data = JSON.parse(rawStr);
 
         if (topic === presenceTopic) {
           if (data.id && data.id !== myId) {
-            activeClients.set(data.id, { id: data.id, status: 'Trực tuyến', lastSeen: Date.now() });
+            const existing = activeClients.get(data.id);
+            activeClients.set(data.id, {
+              id: data.id,
+              name: data.name || data.id,
+              score: typeof data.score === 'number' ? data.score : (existing ? existing.score : 0),
+              status: 'Trực tuyến',
+              lastSeen: Date.now()
+            });
             updateClientListUI();
           }
-        } else if (topic === topicName) {
+          return;
+        }
+
+        if (topic === topicName) {
+          // Đo độ trễ Ping (RTT) khi gói tin của chính mình phản hồi từ Broker về
+          if (data.type === 'ping' && data.sender === myId) {
+            const rtt = Date.now() - data.ts;
+            document.getElementById('statPing').textContent = `${rtt} ms`;
+            return;
+          }
+
           if (data.sender === myId) return;
 
+          if (data.type !== 'cursor') {
+            inspectJson('RX', data);
+          }
+
+          // 1. Con trỏ chuột Realtime
+          if (data.type === 'cursor') {
+            updateRemoteCursor(data.sender, data.name || data.sender, data.x, data.y, data.color || '#38bdf8');
+            return;
+          }
+
+          // 2. Nét vẽ tự do / tẩy
           if (data.type === 'draw') {
-            drawLine(data.x1, data.y1, data.x2, data.y2, data.color, data.size);
-            logNet(`[${data.sender}] Vẽ nét x(${Math.round(data.x1)}->${Math.round(data.x2)})`);
-          } else if (data.type === 'clear') {
+            drawHistory.push(data);
+            renderAction(data);
+          }
+          // 3. Hình học (Đường thẳng, Khung chữ nhật, Hình tròn, Chữ)
+          else if (data.type === 'shape') {
+            drawHistory.push(data);
+            renderAction(data);
+            logNet(`[${data.name || data.sender}] Vẽ ${data.shape}`);
+          }
+          // 4. Hoàn tác (Undo)
+          else if (data.type === 'undo') {
+            drawHistory = drawHistory.filter(item => item.strokeId !== data.strokeId);
+            redrawAllFromHistory();
+            logNet(`[${data.name || data.sender}] Hoàn tác nét vẽ`);
+          }
+          // 5. Xóa bảng
+          else if (data.type === 'clear') {
+            drawHistory = [];
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            logNet(`[${data.sender}] Xóa sạch bảng`);
+            logNet(`[${data.name || data.sender}] Xóa sạch bảng`);
+          }
+          // 6. Đồng bộ bảng vẽ cho người mới vào (Late-Joiner Sync)
+          else if (data.type === 'request_sync') {
+            if (drawHistory.length > 0) {
+              setTimeout(() => {
+                publishPacket(topicName, {
+                  sender: myId,
+                  target: data.sender,
+                  type: 'sync_state',
+                  history: drawHistory.slice(-180),
+                  game: gameState
+                });
+              }, Math.random() * 400);
+            }
+          }
+          else if (data.type === 'sync_state' && data.target === myId) {
+            if (drawHistory.length === 0 && Array.isArray(data.history)) {
+              drawHistory = data.history;
+              redrawAllFromHistory();
+              logNet(`Đã đồng bộ ${drawHistory.length} nét vẽ từ phòng!`);
+            }
+            if (data.game && data.game.active) {
+              gameState = data.game;
+              updateGameBannerUI();
+            }
+          }
+          // 7. Thả Emoji bay toàn phòng
+          else if (data.type === 'emoji') {
+            spawnFloatingEmoji(data.emoji, data.name || data.sender);
+          }
+          // 8. Chat & Mini-Game
+          else if (data.type === 'chat') {
+            appendChat(data.name || data.sender, data.text);
+          }
+          else if (data.type === 'game_start') {
+            gameState = {
+              active: true,
+              drawerId: data.sender,
+              drawerName: data.name || data.sender,
+              word: data.word,
+              hint: data.hint
+            };
+            updateGameBannerUI();
+            appendChat('🎮 Mini-Game', `${gameState.drawerName} vừa bắt đầu vẽ! Gợi ý: ${gameState.hint}`, 'system');
+          }
+          else if (data.type === 'game_win') {
+            gameState.active = false;
+            const winner = activeClients.get(data.winnerId);
+            if (winner) {
+              winner.score = data.newScore;
+              updateClientListUI();
+            }
+            document.getElementById('gameStatusTitle').textContent = `🎉 ${data.winnerName} đã đoán đúng từ khóa: "${data.word}"!`;
+            document.getElementById('gameStatusSub').textContent = `Bấm "Bắt đầu vẽ" để mở vòng chơi tiếp theo!`;
+            appendChat('🏆 CHÚC MỪNG', `${data.winnerName} đã đoán đúng từ khóa "${data.word}" (+10 điểm)!`, 'correct');
+            spawnFloatingEmoji('🎉', data.winnerName);
           }
         }
       } catch (e) {
@@ -556,6 +983,94 @@
       }
     });
 
+    // --- HIỂN THỊ CON TRỎ CHUỘT REALTIME CỦA NGƯỜI KHÁC ---
+    function updateRemoteCursor(id, name, normX, normY, color) {
+      let entry = remoteCursors.get(id);
+      if (!entry) {
+        const safeColor = cursorColors.includes(color) ? color : '#38bdf8';
+        const el = document.createElement('div');
+        el.className = 'remote-cursor';
+        const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        svg.setAttribute('width', '18');
+        svg.setAttribute('height', '18');
+        svg.setAttribute('viewBox', '0 0 24 24');
+        svg.setAttribute('fill', safeColor);
+        svg.setAttribute('stroke', '#fff');
+        svg.setAttribute('stroke-width', '1.5');
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path.setAttribute('d', 'M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z');
+        svg.appendChild(path);
+        const label = document.createElement('div');
+        label.className = 'remote-cursor-label';
+        label.style.background = safeColor;
+        label.textContent = name;
+        el.append(svg, label);
+        cursorOverlay.appendChild(el);
+        entry = { el, lastMove: Date.now() };
+        remoteCursors.set(id, entry);
+      }
+      entry.lastMove = Date.now();
+      entry.el.querySelector('.remote-cursor-label').textContent = name;
+      const rect = canvas.getBoundingClientRect();
+      const px = (normX / canvas.width) * rect.width;
+      const py = (normY / canvas.height) * rect.height;
+      entry.el.style.transform = `translate(${px}px, ${py}px)`;
+      entry.el.style.opacity = '1';
+    }
+
+    setInterval(() => {
+      const now = Date.now();
+      remoteCursors.forEach((entry, id) => {
+        if (now - entry.lastMove > 5000) {
+          entry.el.style.opacity = '0';
+        }
+      });
+    }, 2000);
+
+    // --- VẼ LẠI LỊCH SỬ & CÁC HÌNH HỌC ---
+    function renderAction(act, targetCtx = ctx) {
+      targetCtx.save();
+      if (act.type === 'draw') {
+        targetCtx.beginPath();
+        targetCtx.moveTo(act.x1, act.y1);
+        targetCtx.lineTo(act.x2, act.y2);
+        targetCtx.strokeStyle = act.color;
+        targetCtx.lineWidth = act.size;
+        targetCtx.lineCap = 'round';
+        targetCtx.stroke();
+        targetCtx.closePath();
+      } else if (act.type === 'shape') {
+        targetCtx.strokeStyle = act.color;
+        targetCtx.fillStyle = act.color;
+        targetCtx.lineWidth = act.size;
+        targetCtx.lineCap = 'round';
+        targetCtx.beginPath();
+        if (act.shape === 'line') {
+          targetCtx.moveTo(act.x1, act.y1);
+          targetCtx.lineTo(act.x2, act.y2);
+          targetCtx.stroke();
+        } else if (act.shape === 'rect') {
+          targetCtx.strokeRect(act.x1, act.y1, act.x2 - act.x1, act.y2 - act.y1);
+        } else if (act.shape === 'circle') {
+          const r = Math.hypot(act.x2 - act.x1, act.y2 - act.y1);
+          targetCtx.arc(act.x1, act.y1, r, 0, Math.PI * 2);
+          targetCtx.stroke();
+        } else if (act.shape === 'text') {
+          const fontSize = Math.max(16, parseInt(act.size, 10) * 4);
+          targetCtx.font = `bold ${fontSize}px 'Segoe UI', sans-serif`;
+          targetCtx.fillText(act.text, act.x1, act.y1);
+        }
+        targetCtx.closePath();
+      }
+      targetCtx.restore();
+    }
+
+    function redrawAllFromHistory() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      drawHistory.forEach(act => renderAction(act, ctx));
+    }
+
+    // --- TỌA ĐỘ CHUỘT CHÍNH XÁC THEO TỶ LỆ CANVAS ---
     function getCursorPos(e) {
       const rect = canvas.getBoundingClientRect();
       let clientX, clientY;
@@ -567,48 +1082,134 @@
         clientY = e.clientY;
       }
       return {
-        x: clientX - rect.left,
-        y: clientY - rect.top
+        x: (clientX - rect.left) * (canvas.width / rect.width),
+        y: (clientY - rect.top) * (canvas.height / rect.height)
       };
+    }
+
+    let lastCursorSent = 0;
+    function broadcastCursorMove(pos) {
+      const now = Date.now();
+      if (now - lastCursorSent > 70) {
+        lastCursorSent = now;
+        publishPacket(topicName, {
+          sender: myId,
+          name: myName,
+          type: 'cursor',
+          x: Math.round(pos.x),
+          y: Math.round(pos.y),
+          color: myCursorColor
+        });
+      }
     }
 
     function startPosition(e) {
       e.preventDefault();
-      painting = true;
       const pos = getCursorPos(e);
+      startX = pos.x;
+      startY = pos.y;
       lastX = pos.x;
       lastY = pos.y;
+      currentStrokeId = myId + '_' + Date.now();
+
+      if (currentTool === 'text') {
+        const text = prompt('Nhập nội dung chữ muốn viết lên bảng:');
+        if (text && text.trim()) {
+          const size = document.getElementById('brushSize').value;
+          const packet = {
+            sender: myId,
+            name: myName,
+            strokeId: currentStrokeId,
+            type: 'shape',
+            shape: 'text',
+            text: text.trim(),
+            x1: Math.round(startX),
+            y1: Math.round(startY),
+            color: currentColor,
+            size: size
+          };
+          drawHistory.push(packet);
+          renderAction(packet, ctx);
+          publishPacket(topicName, packet);
+          logNet(`Bạn vừa viết chữ: "${text.trim()}"`);
+        }
+        return;
+      }
+
+      painting = true;
     }
 
     function drawPosition(e) {
+      const pos = getCursorPos(e);
+      broadcastCursorMove(pos);
+
       if (!painting) return;
       e.preventDefault();
-      const pos = getCursorPos(e);
       const currentX = pos.x;
       const currentY = pos.y;
       const size = document.getElementById('brushSize').value;
+      const drawColor = currentTool === 'eraser' ? '#ffffff' : currentColor;
 
-      drawLine(lastX, lastY, currentX, currentY, currentColor, size);
-
-      if (client.connected) {
-        const packet = JSON.stringify({
+      if (currentTool === 'pen' || currentTool === 'eraser') {
+        const packet = {
           sender: myId,
+          name: myName,
+          strokeId: currentStrokeId,
           type: 'draw',
-          x1: lastX, y1: lastY,
-          x2: currentX, y2: currentY,
+          x1: Math.round(lastX),
+          y1: Math.round(lastY),
+          x2: Math.round(currentX),
+          y2: Math.round(currentY),
+          color: drawColor,
+          size: currentTool === 'eraser' ? Math.max(16, size * 2) : size
+        };
+        drawHistory.push(packet);
+        renderAction(packet, ctx);
+        publishPacket(topicName, packet);
+        lastX = currentX;
+        lastY = currentY;
+      } else {
+        // Xem trước hình học (Line, Rect, Circle) trên previewCanvas
+        pCtx.clearRect(0, 0, previewCanvas.width, previewCanvas.height);
+        renderAction({
+          type: 'shape',
+          shape: currentTool,
+          x1: startX,
+          y1: startY,
+          x2: currentX,
+          y2: currentY,
           color: currentColor,
           size: size
-        });
-        client.publish(topicName, packet);
+        }, pCtx);
+        lastX = currentX;
+        lastY = currentY;
       }
-
-      lastX = currentX;
-      lastY = currentY;
     }
 
     function endPosition(e) {
       if (!painting) return;
       painting = false;
+
+      if (currentTool === 'line' || currentTool === 'rect' || currentTool === 'circle') {
+        pCtx.clearRect(0, 0, previewCanvas.width, previewCanvas.height);
+        const size = document.getElementById('brushSize').value;
+        const packet = {
+          sender: myId,
+          name: myName,
+          strokeId: currentStrokeId,
+          type: 'shape',
+          shape: currentTool,
+          x1: Math.round(startX),
+          y1: Math.round(startY),
+          x2: Math.round(lastX),
+          y2: Math.round(lastY),
+          color: currentColor,
+          size: size
+        };
+        drawHistory.push(packet);
+        renderAction(packet, ctx);
+        publishPacket(topicName, packet);
+      }
     }
 
     canvas.addEventListener('mousedown', startPosition);
@@ -620,36 +1221,184 @@
     canvas.addEventListener('touchmove', drawPosition, { passive: false });
     canvas.addEventListener('touchend', endPosition);
 
-    function drawLine(x1, y1, x2, y2, color, size) {
-      ctx.beginPath();
-      ctx.moveTo(x1, y1);
-      ctx.lineTo(x2, y2);
-      ctx.strokeStyle = color;
-      ctx.lineWidth = size;
-      ctx.lineCap = 'round';
-      ctx.stroke();
-      ctx.closePath();
+    function setTool(tool, label) {
+      currentTool = tool;
+      document.querySelectorAll('.tool-btn').forEach(btn => btn.classList.remove('active'));
+      const btn = document.getElementById('tool-' + tool);
+      if (btn) btn.classList.add('active');
+      document.getElementById('activeToolBadge').textContent = label;
     }
 
     function setColor(color, element) {
       currentColor = color;
+      document.getElementById('customColorPicker').value = color;
       document.querySelectorAll('.color-btn').forEach(btn => btn.classList.remove('active'));
-      element.classList.add('active');
+      if (element) element.classList.add('active');
+      if (currentTool === 'eraser') setTool('pen', 'Bút vẽ');
+    }
+
+    function setCustomColor(color) {
+      currentColor = color;
+      document.querySelectorAll('.color-btn').forEach(btn => btn.classList.remove('active'));
+      if (currentTool === 'eraser') setTool('pen', 'Bút vẽ');
+    }
+
+    function undoLastAction() {
+      for (let i = drawHistory.length - 1; i >= 0; i--) {
+        if (drawHistory[i].sender === myId && drawHistory[i].strokeId) {
+          const targetStrokeId = drawHistory[i].strokeId;
+          drawHistory = drawHistory.filter(item => item.strokeId !== targetStrokeId);
+          redrawAllFromHistory();
+          publishPacket(topicName, { sender: myId, name: myName, type: 'undo', strokeId: targetStrokeId });
+          logNet('Bạn đã hoàn tác (Undo) thao tác vẽ gần nhất.');
+          return;
+        }
+      }
+      logNet('Không còn nét vẽ nào của bạn để hoàn tác.');
+    }
+
+    function downloadBoard() {
+      const tempCanvas = document.createElement('canvas');
+      tempCanvas.width = canvas.width;
+      tempCanvas.height = canvas.height;
+      const tCtx = tempCanvas.getContext('2d');
+      tCtx.fillStyle = '#ffffff';
+      tCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
+      tCtx.drawImage(canvas, 0, 0);
+
+      const link = document.createElement('a');
+      link.download = `whiteboard_${currentRoom}_${Date.now()}.png`;
+      link.href = tempCanvas.toDataURL('image/png');
+      link.click();
+      logNet('Đã tải bảng vẽ về máy dạng ảnh PNG!');
     }
 
     function clearBoard() {
+      drawHistory = [];
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      if (client.connected) {
-        client.publish(topicName, JSON.stringify({ sender: myId, type: 'clear' }));
-      }
+      publishPacket(topicName, { sender: myId, name: myName, type: 'clear' });
       logNet('Bạn đã gửi lệnh xóa toàn bộ bảng vẽ.');
+    }
+
+    // --- THẢ EMOJI BAY TOÀN PHÒNG ---
+    function spawnFloatingEmoji(emoji, senderName) {
+      const el = document.createElement('div');
+      el.className = 'floating-emoji';
+      el.style.left = Math.floor(15 + Math.random() * 75) + '%';
+      const label = document.createElement('span');
+      label.textContent = senderName;
+      el.append(document.createTextNode(emoji), label);
+      cursorOverlay.appendChild(el);
+      setTimeout(() => el.remove(), 2600);
+    }
+
+    function sendEmoji(emoji) {
+      spawnFloatingEmoji(emoji, myName + ' (Bạn)');
+      publishPacket(topicName, { sender: myId, name: myName, type: 'emoji', emoji: emoji });
+    }
+
+    // --- KHUNG CHAT & MINI-GAME ĐUỔI HÌNH BẮT CHỮ ---
+    function appendChat(sender, text, styleClass = '') {
+      const box = document.getElementById('chatBox');
+      const div = document.createElement('div');
+      div.className = 'chat-msg ' + styleClass;
+      const name = document.createElement('b');
+      name.textContent = `[${sender}]: `;
+      div.append(name, document.createTextNode(text));
+      box.appendChild(div);
+      box.scrollTop = box.scrollHeight;
+    }
+
+    function makeHint(word) {
+      return word.split('').map(ch => ch === ' ' ? '   ' : '_ ').join('') + ` (${word.replace(/\s+/g, '').length} chữ cái)`;
+    }
+
+    function updateGameBannerUI() {
+      if (!gameState.active) return;
+      if (gameState.drawerId === myId) {
+        document.getElementById('gameStatusTitle').textContent = `🎨 Bạn đang là Người Vẽ! Từ khóa bí mật: [ ${gameState.word} ]`;
+        document.getElementById('gameStatusSub').textContent = `Hãy vẽ lên bảng để các bạn trong phòng đoán từ khóa này (Đừng viết chữ đáp án nhé!)`;
+      } else {
+        document.getElementById('gameStatusTitle').textContent = `🕵️ ${gameState.drawerName} đang vẽ! Gợi ý: ${gameState.hint}`;
+        document.getElementById('gameStatusSub').textContent = `Hãy nhìn bảng vẽ và gõ đáp án dự đoán vào ô Chat bên dưới để ghi +10 điểm!`;
+      }
+    }
+
+    function startMiniGameWithWord(rawWord) {
+      const cleanWord = rawWord.trim().toUpperCase();
+      if (!cleanWord) return;
+      clearBoard();
+      const hint = makeHint(cleanWord);
+      gameState = {
+        active: true,
+        drawerId: myId,
+        drawerName: myName,
+        word: cleanWord,
+        hint: hint
+      };
+      updateGameBannerUI();
+      publishPacket(topicName, {
+        sender: myId,
+        name: myName,
+        type: 'game_start',
+        word: cleanWord,
+        hint: hint
+      });
+      appendChat('🎮 Mini-Game', `Bạn đã bắt đầu vòng chơi mới! Từ khóa của bạn là: "${cleanWord}"`, 'system');
+    }
+
+    function startMiniGameRandom() {
+      const randomWord = WORD_BANK[Math.floor(Math.random() * WORD_BANK.length)];
+      startMiniGameWithWord(randomWord);
+    }
+
+    function startMiniGameCustom() {
+      const custom = prompt('Nhập từ khóa bí mật bạn muốn vẽ đố cả phòng:');
+      if (custom && custom.trim()) {
+        startMiniGameWithWord(custom);
+      }
+    }
+
+    function sendChatMessage() {
+      const input = document.getElementById('chatInput');
+      const text = input.value.trim();
+      if (!text) return;
+      input.value = '';
+
+      // Kiểm tra nếu đang có Mini-Game và người chơi đoán đúng từ khóa
+      if (gameState.active && gameState.drawerId !== myId && text.toUpperCase() === gameState.word) {
+        myScore += 10;
+        const me = activeClients.get(myId);
+        if (me) me.score = myScore;
+        updateClientListUI();
+        gameState.active = false;
+
+        document.getElementById('gameStatusTitle').textContent = `🎉 Chính xác! Bạn đã đoán đúng từ khóa "${gameState.word}" (+10 điểm)!`;
+        document.getElementById('gameStatusSub').textContent = `Bấm "Bắt đầu vẽ" để mở vòng chơi mới!`;
+        appendChat('🏆 CHÚC MỪNG', `Bạn đã đoán đúng từ khóa "${gameState.word}" và nhận +10 điểm!`, 'correct');
+        spawnFloatingEmoji('🎉', myName);
+
+        publishPacket(topicName, {
+          sender: myId,
+          type: 'game_win',
+          winnerId: myId,
+          winnerName: myName,
+          word: gameState.word,
+          newScore: myScore
+        });
+        publishPacket(presenceTopic, { id: myId, name: myName, score: myScore, status: 'Active' });
+        return;
+      }
+
+      appendChat(myName + ' (Bạn)', text);
+      publishPacket(topicName, { sender: myId, name: myName, type: 'chat', text: text });
     }
 
     setInterval(() => {
       const now = Date.now();
       let changed = false;
-      activeClients.forEach((client, id) => {
-        if (id !== myId && now - client.lastSeen > 8000) {
+      activeClients.forEach((c, id) => {
+        if (id !== myId && now - c.lastSeen > 8000) {
           activeClients.delete(id);
           changed = true;
         }
